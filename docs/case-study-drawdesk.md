@@ -16,7 +16,7 @@ live product, one day.
 | 8 Release | `docs/08-release.md` | GitHub repo, CI, Pages, tag v1.0.0, rollback |
 | 9 QA | `docs/09-qa.md` | RELEASE, zero blockers, 3 non-blocking findings |
 
-Live: https://lycemart.github.io/drawdesk/
+Live: https://drawdesk.76-13-181-161.sslip.io/ (owner's server, nginx + TLS; Pages mirror)
 Repo: https://github.com/lycemart/drawdesk
 
 ## What the gates actually caught

@@ -87,7 +87,7 @@ is approved, what is assumed, and what is still open.
 ## Proven on
 
 **DrawDesk** (11 Nov 2026) — a UK director salary/dividend/pension planner:
-[live](https://lycemart.github.io/drawdesk/) ·
+[live](https://drawdesk.76-13-181-161.sslip.io/) ·
 [repo](https://github.com/lycemart/drawdesk) ·
 [case study](docs/case-study-drawdesk.md).
 

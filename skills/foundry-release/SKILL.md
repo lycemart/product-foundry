@@ -110,6 +110,40 @@ Repo → Settings → Pages → Source: GitHub Actions. For a project site
 (`owner.github.io/<repo>`) set `basePath`/`assetPrefix` in the framework config
 — a root-relative asset URL will 404 and the page will look blank.
 
+### The owner's server (preferred when they say "my server", not AWS)
+
+Static site, nginx, TLS on the box. No cloud account, no registrar:
+
+```bash
+# layout
+/srv/<slug>/releases/<sha>/     # immutable, one per deploy
+/srv/<slug>/current -> releases/<sha>
+```
+
+```bash
+# deploy.sh (run on the server)
+set -euo pipefail
+REV=$(git rev-parse --short HEAD)
+pnpm test && pnpm typecheck
+NEXT_PUBLIC_BASE_PATH= NEXT_PUBLIC_SITE_URL="https://<host>" pnpm build
+mkdir -p /srv/<slug>/releases
+rm -rf "/srv/<slug>/releases/$REV"
+cp -a out "/srv/<slug>/releases/$REV"
+ln -sfn "/srv/<slug>/releases/$REV" /srv/<slug>/current
+nginx -t && systemctl reload nginx
+curl -fsS "https://<host>/" | grep -q "<marker>"
+ls -1dt /srv/<slug>/releases/* | tail -n +4 | xargs -r rm -rf
+```
+
+- TLS: `certbot certonly --webroot -w /var/www/html -d <host>` (dry-run first).
+  No domain/registrar access? A `<name>.<ip-with-dashes>.sslip.io` host resolves
+  to the server and Let's Encrypt will issue for it; use it until the owner
+  supplies a domain. Never buy a domain or touch DNS without the owner's word.
+- nginx: `try_files $uri $uri/ =404`, `error_page 404 /404.html`, immutable
+  cache for `/_next/static/`, HSTS, nosniff, frame DENY, referrer policy.
+- Mirror: keep Pages only if useful, and point its canonical at the server.
+- Rollback: re-point `current` at the previous release and reload nginx.
+
 ### VPS (only when a backend/domain is genuinely needed)
 
 Static: build to `/srv/<slug>/releases/<sha>`, symlink `current`, nginx server

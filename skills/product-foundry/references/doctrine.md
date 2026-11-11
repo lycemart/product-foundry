@@ -82,6 +82,10 @@ the calculator sites) and from what actually broke there.
 - Tag only what passed CI and a real smoke test. Rollback is a re-deploy of the
   previous tag, and it must be written down before the deploy starts.
 - Never force-push `main`. Never rewrite a tag that shipped.
+- **Hosting:** the owner's server first — nginx, immutable release directories,
+  a symlink for `current`, a `deploy.sh`, TLS on the server. Do not provision
+  AWS or another cloud for a new product unless the owner asks. A GitHub Pages
+  build may exist only as a mirror whose canonical points at the real host.
 
 ## 10. Quality budgets (static product baseline)
 
