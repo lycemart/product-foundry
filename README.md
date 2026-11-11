@@ -84,6 +84,17 @@ is approved, what is assumed, and what is still open.
 7. **QA is adversarial and independent.** The builder never grades itself.
 8. **Reports are short and honest.** "Not run" beats a confident lie.
 
+## Proven on
+
+**DrawDesk** (11 Nov 2026) — a UK director salary/dividend/pension planner:
+[live](https://lycemart.github.io/drawdesk/) ·
+[repo](https://github.com/lycemart/drawdesk) ·
+[case study](docs/case-study-drawdesk.md).
+
+Built through all nine gates in one run: 11 competitors researched, 30 names
+checked, original identity, 18 engine tests, Lighthouse 93/100/100/100,
+GitHub Pages deploy, tagged `v1.0.1`, QA zero blockers.
+
 ## Repository layout
 
 ```
